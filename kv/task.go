@@ -227,6 +227,14 @@ func (s *Service) findTasksByUser(ctx context.Context, tx Tx, filter influxdb.Ta
 			continue
 		}
 
+		if filter.Type == nil {
+			ft := ""
+			filter.Type = &ft
+		}
+		if *filter.Type != influxdb.TaskTypeWildcard && *filter.Type != task.Type {
+			continue
+		}
+
 		ts = append(ts, task)
 
 		if len(ts) >= filter.Limit {
@@ -296,6 +304,14 @@ func (s *Service) findTaskByOrg(ctx context.Context, tx Tx, filter influxdb.Task
 				return nil, 0, err
 			}
 
+			if filter.Type == nil {
+				ft := ""
+				filter.Type = &ft
+			}
+			if *filter.Type != influxdb.TaskTypeWildcard && *filter.Type != t.Type {
+				t = nil
+			}
+
 			// insert the new task into the list
 			if t != nil {
 				ts = append(ts, t)
@@ -332,6 +348,14 @@ func (s *Service) findTaskByOrg(ctx context.Context, tx Tx, filter influxdb.Task
 		// If the new task doesn't belong to the org we have looped outside the org filter
 		if org != nil && t.OrganizationID != org.ID {
 			break
+		}
+
+		if filter.Type == nil {
+			ft := ""
+			filter.Type = &ft
+		}
+		if *filter.Type != influxdb.TaskTypeWildcard && *filter.Type != t.Type {
+			continue
 		}
 
 		// insert the new task into the list
@@ -491,6 +515,7 @@ func (s *Service) createTask(ctx context.Context, tx Tx, tc influxdb.TaskCreate)
 	createdAt := time.Now().UTC().Format(time.RFC3339)
 	task := &influxdb.Task{
 		ID:              s.IDGenerator.ID(),
+		Type:            tc.Type,
 		OrganizationID:  org.ID,
 		Organization:    org.Name,
 		AuthorizationID: auth.Identifier(),
