@@ -6552,7 +6552,7 @@ components:
           readOnly: true
           type: string
         type:
-          description: The type of task, this can be used for filtering
+          description: The type of task, this can be used for filtering tasks on list actions.
           type: string
         orgID:
           description: The ID of the organization that owns this Task.
@@ -8805,7 +8805,7 @@ components:
       type: object
       properties:
         type:
-          description: The type of task to create.
+          description: The type of task, this can be used for filtering tasks on list actions.
           type: string
         orgID:
           description: The ID of the organization that owns this Task.
