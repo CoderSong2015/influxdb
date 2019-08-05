@@ -178,10 +178,11 @@ func (as *AnalyticalStorage) FindRuns(ctx context.Context, filter influxdb.RunFi
 	  |> range(start: -14d)
 	  |> filter(fn: (r) => r._measurement == "runs" and r.taskID == %q)
 	  %s
+	  |> limit(n:%d)
 	  |> group(columns: ["taskID"])
 	  |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
 
-	  `, filter.Task.String(), filterPart)
+	  `, filter.Task.String(), filterPart, filter.Limit)
 
 	// At this point we are behind authorization
 	// so we are faking a read only permission to the org's system bucket
@@ -220,7 +221,13 @@ func (as *AnalyticalStorage) FindRuns(ctx context.Context, filter influxdb.RunFi
 		return nil, 0, fmt.Errorf("unexpected internal error while decoding run response: %v", err)
 	}
 
-	runs = append(runs, re.runs...)
+	for _, run := range re.runs {
+		if len(runs) >= filter.Limit {
+			return runs, n, err
+		}
+
+		runs = append(runs, run)
+	}
 
 	return runs, n, err
 }
