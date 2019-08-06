@@ -20,7 +20,7 @@ const EventViewer: FC<Props> = ({loadRows, children}) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
 
   useEffect(() => {
-    loadNextRows(state, dispatch, loadRows)
+    loadNextRows(state, dispatch, loadRows, Date.now())
   }, [])
 
   return children({state, dispatch, loadRows})

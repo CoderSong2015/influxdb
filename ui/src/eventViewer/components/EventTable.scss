@@ -1,0 +1,55 @@
+$event-table--field-margin: $ix-marg-b;
+
+.event-table-header, .event-row {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+
+  > * {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+}
+
+.event-table-header {
+  padding: 0 $event-table--field-margin;
+  margin-bottom: $ix-marg-c;
+}
+
+.event-table-header--field {
+  user-select: none;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: $g11-sidewalk;
+  margin: 0 $event-table--field-margin;
+}
+
+.event-row, .event-loading-row {
+  height: calc(100% - 4px);
+  width: 100%;
+  border-radius: $radius;
+  background: $g3-castle;
+  display: flex;
+  align-items: center;
+  font-size: $ix-text-base;
+  padding: 0 $event-table--field-margin;
+}
+
+.event-loading-row {
+  display: flex;
+  align-items: center;
+}
+
+.event-row--field, .event-loading-row--placeholder {
+  margin: 0 $event-table--field-margin;
+}
+
+.event-row--field {
+  overflow: hidden;
+}
+
+.event-loading-row--placeholder {
+  background-color: $g6-smoke;
+  border-radius: $radius-small;
+}

@@ -7,11 +7,14 @@ import AlertHistory from 'src/alerting/components/AlertHistory'
 
 const AlertHistoryIndex: FC = () => {
   return (
-    <Page titleTag="Alert History | InfluxDB 2.0">
+    <Page
+      titleTag="Alert History | InfluxDB 2.0"
+      className="alert-history-page"
+    >
       <Page.Header fullWidth={true}>
         <Page.Title title="Alert History" />
       </Page.Header>
-      <Page.Contents fullWidth={true}>
+      <Page.Contents fullWidth={true} fullHeight={true} scrollable={false}>
         <AlertHistory />
       </Page.Contents>
     </Page>

@@ -10,8 +10,13 @@ export const fakeLoadRows: LoadRows = async ({
 
   return range(offset, offset + limit).map(i => {
     return {
-      time: now - 1000 * 60 * i,
-      message: `This is row #${i}`,
+      time: now - 1000 * 30 * i,
+      message: `hello from row ${i}`,
+      status: 'OK',
+      tags: {
+        host: 'pt2ph8',
+        environment: 'dev',
+      },
     }
   })
 }

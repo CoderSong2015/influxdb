@@ -24,9 +24,13 @@ export interface State {
 }
 
 export type Action =
-  | {type: 'NEXT_ROWS_STATUS_CHANGED'; nextRowsStatus: RemoteDataState}
   | {type: 'NEXT_ROWS_LOADED'; rows: Row[]}
   | {type: 'NEXT_ROWS_FAILED_TO_LOAD'; errorMessage: string}
+  | {
+      type: 'NEXT_ROWS_STATUS_CHANGED'
+      nextRowsStatus: RemoteDataState
+      now?: number
+    }
 
 export type Dispatch = ReactDispatch<Action>
 

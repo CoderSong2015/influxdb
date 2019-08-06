@@ -16,7 +16,11 @@ export const INITIAL_STATE: State = {
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'NEXT_ROWS_STATUS_CHANGED': {
-      return {...state, nextRowsStatus: action.nextRowsStatus}
+      return {
+        ...state,
+        nextRowsStatus: action.nextRowsStatus,
+        now: action.now ? action.now : state.now,
+      }
     }
 
     case 'NEXT_ROWS_FAILED_TO_LOAD': {
@@ -32,6 +36,7 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         rows: [...state.rows, ...action.rows],
         nextRowsStatus: RemoteDataState.Done,
+        offset: state.offset + LIMIT,
       }
     }
 
@@ -46,7 +51,8 @@ export const reducer = (state: State, action: Action): State => {
 export const loadNextRows = async (
   state: State,
   dispatch: Dispatch,
-  loadRows: LoadRows
+  loadRows: LoadRows,
+  now?: number
 ) => {
   if (state.nextRowsStatus === RemoteDataState.Loading) {
     return
@@ -55,13 +61,14 @@ export const loadNextRows = async (
   dispatch({
     type: 'NEXT_ROWS_STATUS_CHANGED',
     nextRowsStatus: RemoteDataState.Loading,
+    now,
   })
 
   try {
     const rows = await loadRows({
       offset: state.offset,
       limit: LIMIT,
-      now: state.now,
+      now: now || state.now,
     })
 
     dispatch({type: 'NEXT_ROWS_LOADED', rows})

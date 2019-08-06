@@ -112,8 +112,10 @@
 @import 'src/members/components/AddMembersForm.scss';
 @import 'src/shared/components/DeleteDataForm/DeleteDataForm.scss';
 @import 'src/shared/components/cloud/CloudOnly.scss';
-@import 'src/eventViewer/components/EventViewer.scss';
-
+@import 'src/eventViewer/components/EventTable.scss';
+@import 'src/alerting/containers/AlertHistoryIndex.scss';
+@import 'src/alerting/components/StatusField.scss';
+@import 'src/alerting/components/TagsField.scss';
 
 // External
 @import '../../node_modules/@influxdata/react-custom-scrollbars/dist/styles.css';

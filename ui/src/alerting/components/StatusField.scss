@@ -1,0 +1,24 @@
+.status-field {
+  font-weight: 600;
+}
+
+.status-field--crit {
+  color: $c-fire;
+}
+
+.status-field--warn {
+  color: $c-tiger;
+}
+
+.status-field--ok {
+  color: $c-rainforest;
+}
+
+.status-field--info {
+  color: $c-pool;
+}
+
+.status-field--unknown {
+  color: $c-amethyst;
+}
+
